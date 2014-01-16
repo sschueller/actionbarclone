@@ -1,6 +1,7 @@
 <Alloy>
 	<View id="headerbar" platform="android">
-		<View id="backbutton">
+		<View id="burger"/>
+		<View id="backbutton">			
 			<View id="backangle"/>
 			<View id="appicon"/>
 		</View>

@@ -8,7 +8,7 @@ exports.getButton=function(args){
 		 height:"35dp",
 		 width:"35dp",
 		 image: args.image
-	})
+	});
 	button.add(icon);
 
 	if (args.action){
@@ -16,7 +16,7 @@ exports.getButton=function(args){
 	}
 	
 	button.addEventListener('touchstart',function(evt){	
-		this.backgroundColor="#000"
+		this.backgroundColor="#000";
 		this.opacity=0.2;
 	});
 
@@ -27,13 +27,13 @@ exports.getButton=function(args){
 
 	button.addEventListener('touchmove',function(evt){
 		// to-do: cancel press if finger is outside the button
-	})
+	});
 
 	if (args.title){
 		button.addEventListener('longpress',function(evt){
 			// to-do: Show tooltip with args.title
-		})	
+		});
 	}
 	
 	return button;
-}
+};

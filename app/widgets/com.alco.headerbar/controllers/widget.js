@@ -1,11 +1,12 @@
 var backAction=null;
+var burgerAction=null;
 var extraButtonAction=null;
 var parentWindow=null;
 
 var buttonFactory=require(WPATH('button'));
 
 // set default app icon, in case no icon is provided
-$.appicon.backgroundImage='/appicon.png'	
+$.appicon.backgroundImage='/appicon.png';	
 
 function openInflater(evt){
 	// need to code this part
@@ -16,21 +17,25 @@ $.headerbar.addEventListener('click',function(evt){
 	// this cancels the click event that get's fired 
 	// when the parent window is clicked 
 	evt.cancelBubble=true;
-})
+});
 
 $.backbutton.addEventListener('click',function(evt){
 	evt.cancelBubble=true;
-})
+});
 
 $.backbutton.addEventListener('touchstart',function(evt){	
-	this.backgroundColor="#000"
+	this.backgroundColor="#000";
 	this.opacity=0.2;
 });
 
 $.backbutton.addEventListener('touchend',function(evt){
 	this.backgroundColor='transparent';
 	this.opacity=1;
-	(!backAction)?parentWindow.close():backAction();
+	if($.backangle.visible==true) {
+		(!backAction)?parentWindow.close():backAction();
+	} else if($.burger.visible==true) {
+		burgerAction();	
+	}	
 });
 
 function setTitle(args){
@@ -42,12 +47,24 @@ function setBack(action){
 	backAction=action;
 }
 
+function setBurger(action){
+	burgerAction=action;
+}
+
 function setBlackAngle(){
 	$.backangle.backgroundImage=WPATH('light-back-angle.png');
 }
 
 function setWhiteAngle(){
 	$.backangle.backgroundImage=WPATH('white-back-angle.png');
+}
+
+function setBlackBurger(){
+	$.burger.backgroundImage=WPATH('ic_drawer_holo_dark.png');
+}
+
+function setWhiteBurger(){
+	$.burger.backgroundImage=WPATH('ic_drawer_holo_light.png');
 }
 
 function hideAngle(){
@@ -60,6 +77,23 @@ function showAngle(){
 	$.backangle.visible=true;
 }
 
+function hideBurger(){
+	$.burger.visible=false;
+}
+
+function showBurger(){
+	$.burger.visible=true;
+}
+
+function setBurgerWidth(offset){
+	var min = 13;
+	var max = 20;
+
+	var newWidth = max - ((max - min) * offset).toFixed();
+	
+	$.burger.width= newWidth;
+}
+
 function setAppIcon(icon){
 	$.appicon.backgroundImage=icon;	
 }
@@ -69,7 +103,7 @@ function setParentContainer(handle){
 }
 
 function setBackground(args){
-	(args.image)?$.headerbar.backgroundImage=args.image:$.headerbar.backgroundImage=WPATH('lightbg.png');
+//	(args.image)?$.headerbar.backgroundImage=args.image:$.headerbar.backgroundImage=WPATH('lightbg.png');
 	$.headerbar.backgroundColor=args.color;
 	
 	$.headerbar.backgroundRepeat= true;
@@ -94,22 +128,22 @@ function setActionButtons(args){
 				image:button.icon,
 				action: button.action,
 				title: button.title
-			}
+			};
 			var tbbutton=buttonFactory.getButton(payload);
 			$.actionButtons.add(tbbutton);
-		})
+		});
 	}
 
 	if (args.inflater){
 		var menuoptions='';
 		var payload={
 			image: WPATH('ic_menu_moreoverflow_normal_holo_light.png')
-		}
+		};
 		
 		var inflater=buttonFactory.getButton(payload);
 		args.inflater.forEach(function(button){
 			// here I gather all the menu options and build a dropdown menu
-			menuoptions+=button.title
+			menuoptions+=button.title;
 		});
 		inflater.addEventListener('click',openInflater);
 			
@@ -126,10 +160,11 @@ function setActionButtons(args){
 					showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER
 				});
 				menuItem.addEventListener("click", button.action);
-			})
-		}
+			});
+		};
 	}
 }
+
 //
 exports.setTop=setTop;
 exports.setActionButtons=setActionButtons;
@@ -142,5 +177,11 @@ exports.hideAngle=hideAngle;
 exports.showAngle=showAngle;
 exports.setBlackAngle=setBlackAngle;
 exports.setWhiteAngle=setWhiteAngle;
+exports.hideBurger=hideBurger;
+exports.showBurger=showBurger;
+exports.setBlackBurger=setBlackBurger;
+exports.setWhiteBurger=setWhiteBurger;
 exports.setTitle=setTitle;
 exports.setBack=setBack;
+exports.setBurger=setBurger;
+exports.setBurgerWidth=setBurgerWidth;
