@@ -72,6 +72,30 @@ Although you can access [Android's native ActionBar from Titanium](https://gist.
 		<td><b>setActionButtons</td>
 		<td>Object containing 3 arrays: visible, inflater and Android menu.  Each array holds menu options for each button in the following format: <b>{icon:'icon.png',title: 'Caption',action: Object}</b>.  Object contains 3 arrays: visible, inflater and androidmenu.  Each array contains a collection of objects with properties: title, icon and action.</td>
 	</tr>
+	<tr>
+		<td><b>hideBurger</b></td>
+		<td>-</td>
+	</tr>
+	<tr>
+		<td><b>showBurger</b></td>
+		<td>-</td>
+	</tr>
+	<tr>
+		<td><b>setBlackBurger</b></td>
+		<td>-</td>
+	</tr>
+	<tr>
+		<td><b>setWhiteBurger</b></td>
+		<td>-</td>
+	</tr>
+	<tr>
+		<td><b>setBurger</b></td>
+		<td>-</td>
+	</tr>	
+	<tr>
+		<td><b>setBurgerWidth</b></td>
+		<td>-</td>
+	</tr>	
 </table>
 
 
